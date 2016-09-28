@@ -2,6 +2,7 @@ package com.edn.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,8 +14,13 @@ public class Employee implements Serializable {
 
 	@Id
 	@GeneratedValue
+	@Column(name = "EMP_ID")
 	private Long id;
+	
+	@Column(name = "DS_NAME")
 	private String name;
+	
+	@Column(name = "IDADE")
 	private Integer age;
 
 	

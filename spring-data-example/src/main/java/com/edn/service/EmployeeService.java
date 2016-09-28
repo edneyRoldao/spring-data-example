@@ -45,7 +45,6 @@ public class EmployeeService {
 
 	
 	// Queries customizadas
-	
 	public List<Employee> listarPorIdade(int idade) {
 		return repository.findEmployeesByAge(idade);
 	}
