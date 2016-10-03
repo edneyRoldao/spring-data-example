@@ -1,3 +1,3 @@
-# spring data jpa examples
+# spring data jpa
 
 Java 1.8
