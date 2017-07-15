@@ -16,7 +16,8 @@ local.properties
 .externalToolBuilders/
 *.launch
 .factorypath
-.target
+.target/
 *UserData.java
+*.class
 
 
