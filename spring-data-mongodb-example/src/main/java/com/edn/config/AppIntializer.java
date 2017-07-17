@@ -2,7 +2,9 @@ package com.edn.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class AppIntializer extends AbstractAnnotationConfigDispatcherServletInitializer  {
+import com.edn.mongo.config.MongoConfig;
+
+public class AppIntializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
