@@ -9,3 +9,5 @@ http://fruzenshtein.com/spring-jpa-data-hibernate-mysql/
 <br/>
 https://github.com/Fruzenshtein/spr-data/blob/master/src/main/java/com/spr/init/Initializer.java
 <br/>
+http://source.lishman.com/project/609#card/1147/file/18066
+<br>
