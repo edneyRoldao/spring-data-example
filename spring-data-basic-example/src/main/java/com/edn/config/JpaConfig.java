@@ -2,6 +2,7 @@ package com.edn.config;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import javax.sql.DataSource;
 
@@ -24,58 +25,64 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 public class JpaConfig {
-	
+
 	@Bean
 	public DataSource dataSource() {
-		
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
 		EmbeddedDatabase database = builder.setType(EmbeddedDatabaseType.HSQL).build();
-		
+
 		return database;
 	}
-	
+
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
 		adapter.setDatabase(Database.HSQL);
 		adapter.setGenerateDdl(true);
-		
+
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(adapter);
 		factory.setPackagesToScan("com.edn.model");
 		factory.setDataSource(dataSource());
-		
+		factory.setJpaProperties(jpaProperties());
+
 		return factory;
 	}
-	
+
 	@Bean
 	public PlatformTransactionManager transactionManager() {
-		
 		JpaTransactionManager txManager = new JpaTransactionManager();
 		txManager.setEntityManagerFactory(entityManagerFactory().getObject());
-		
+
 		return txManager;
 	}
-	
+
 	@Bean
 	@Lazy(false)
 	public ResourceDatabasePopulator populateDatabase() throws SQLException {
-		
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
 		populator.addScript(new ClassPathResource("data.sql"));
-		
+
 		Connection con = null;
-		
+
 		try {
 			con = DataSourceUtils.getConnection(dataSource());
 			populator.populate(con);
+
 		} finally {
-			if(con != null)
+			if (con != null)
 				DataSourceUtils.releaseConnection(con, dataSource());
 		}
-		
+
 		return populator;
 	}
-	
+
+	private Properties jpaProperties() {
+		Properties props = new Properties();
+		props.setProperty("hibernate.show_sql", "true");
+		props.setProperty("hibernate.hbm2ddl.auto", "create");
+
+		return props;
+	}
+
 }

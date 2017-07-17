@@ -25,4 +25,5 @@ public class MongoConfig extends AbstractMongoConfiguration {
 	protected String getMappingBasePackage() {
 		return "com.edn";
 	}
+
 }
